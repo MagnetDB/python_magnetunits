@@ -1,0 +1,24 @@
+# pyproject.toml
+[project]
+name = "python-magnetunits"
+version = "0.1.0"
+description = "Generic field and unit management for scientific computing"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Christophe Trophime", email = "christophe.trophime@lncmi.cnrs.fr" }]
+requires-python = ">=3.8"
+dependencies = [
+	"pint>=0.20",
+]
+
+[project.optional-dependencies]
+dev = [
+	"pytest>=7.0",
+	"pytest-cov>=4.0",
+	"black>=23.0",
+	"mypy>=1.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
