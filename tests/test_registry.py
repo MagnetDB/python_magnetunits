@@ -2,8 +2,7 @@
 Tests for the FieldRegistry class.
 """
 
-import pytest
-from python_magnetunits import Field, FieldRegistry, ureg
+from python_magnetunits import Field, FieldRegistry
 
 
 class TestFieldRegistryCreation:
@@ -150,11 +149,11 @@ class TestFieldRegistryListing:
             metadata={"category": "thermal"},
         )
         registry.bulk_register([B, T])
-        
+
         em_fields = registry.list_fields(category="electromagnetic")
         assert len(em_fields) == 1
         assert em_fields[0] is B
-        
+
         thermal_fields = registry.list_fields(category="thermal")
         assert len(thermal_fields) == 1
         assert thermal_fields[0] is T
@@ -190,7 +189,7 @@ class TestFieldRegistryRemoval:
         field = Field(name="B", symbol="B", unit="tesla", aliases=["B_field"])
         registry.register(field)
         assert "B" in registry
-        
+
         result = registry.remove("B")
         assert result is True
         assert "B" not in registry
@@ -206,9 +205,9 @@ class TestFieldRegistryRemoval:
         registry = FieldRegistry()
         field = Field(name="B", symbol="B", unit="tesla", aliases=["B_field"])
         registry.register(field)
-        
+
         registry.remove("B")
-        
+
         # Alias lookup should now fail
         assert registry.get("B_field") is None
 
@@ -223,7 +222,7 @@ class TestFieldRegistryRemoval:
         )
         registry.register(field)
         registry.remove("B")
-        
+
         assert registry.get("B_field") is None
         assert registry.get("magnetic_field") is None
         assert registry.get("flux_density") is None
@@ -237,7 +236,7 @@ class TestFieldRegistryRepr:
         registry = FieldRegistry()
         field = Field(name="B", symbol="B", unit="tesla")
         registry.register(field)
-        
+
         repr_str = repr(registry)
         assert "FieldRegistry" in repr_str
         assert "1" in repr_str  # Number of fields
