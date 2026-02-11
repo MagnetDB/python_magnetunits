@@ -5,9 +5,12 @@ Core Field class for representing physical fields with units and metadata.
 from __future__ import annotations
 
 from dataclasses import dataclass, field as dc_field
-from typing import Any, List, Optional, Union
+from typing import TYPE_CHECKING, Any, List, Optional, Union
 
 from pint import UnitRegistry
+
+if TYPE_CHECKING:
+    from .field_types import FieldType
 
 # Module-level singleton instance
 _global_ureg: Optional[UnitRegistry] = None
@@ -44,7 +47,7 @@ class Field:
         name: Unique identifier for the field (e.g., "MagneticField")
         symbol: Short symbol for display (e.g., "B")
         unit: Pint unit or unit string (e.g., "tesla", ureg.tesla)
-        field_type: Optional FieldType enum value for categorization
+        field_type: Optional FieldType enum value for categorization and validation
         description: Optional human-readable description of the field
         latex_symbol: Optional LaTeX representation (e.g., r"$B$")
         aliases: Alternative names for this field (for registry lookup)
@@ -53,24 +56,23 @@ class Field:
         metadata: Custom metadata dict for application-specific data
 
     Example:
+        >>> from python_magnetunits import Field, FieldType, ureg
         >>> B_field = Field(
         ...     name="MagneticField",
         ...     symbol="B",
         ...     unit=ureg.tesla,
+        ...     field_type=FieldType.MAGNETIC_FIELD,
         ...     description="Magnetic flux density",
         ...     latex_symbol=r"$B$",
-        ...     aliases=["B_field", "magnetic_field"]
         ... )
-        >>> B_field.convert(1.5, "gauss")
-        15000.0
-        >>> B_field.format_label("tesla", use_latex=True)
-        '$B$ [T]'
+        >>> B_field.convert(1.5, "millitesla")
+        1500.0
     """
 
     name: str
     symbol: str
     unit: Union[str, Any]  # pint.Unit or str
-    field_type: Optional[Any] = None  # Optional[FieldType] - avoiding circular import
+    field_type: Optional["FieldType"] = None
     description: Optional[str] = None
     latex_symbol: Optional[str] = None
     aliases: List[str] = dc_field(default_factory=list)
@@ -79,11 +81,76 @@ class Field:
     metadata: dict[str, Any] = dc_field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        """Convert string units to pint Units after initialization."""
+        """Convert string units to pint Units and validate field_type compatibility."""
+        # Convert string units to pint Units
         if isinstance(self.unit, str):
-            self.unit = ureg(self.unit)
+            self.unit = ureg.Unit(self.unit)
+        
+        # Default latex_symbol to symbol if not provided
         if self.latex_symbol is None:
             self.latex_symbol = self.symbol
+        
+        # Validate unit compatibility with field_type if provided
+        if self.field_type is not None:
+            if not self.field_type.is_compatible(self.unit):
+                raise ValueError(
+                    f"Unit '{self.unit}' is not compatible with field_type "
+                    f"'{self.field_type.name}' (expected dimensionality of "
+                    f"'{self.field_type.default_unit}')"
+                )
+
+    @classmethod
+    def from_field_type(
+        cls,
+        field_type: "FieldType",
+        name: Optional[str] = None,
+        symbol: Optional[str] = None,
+        unit: Optional[Union[str, Any]] = None,
+        latex_symbol: Optional[str] = None,
+        **kwargs: Any,
+    ) -> "Field":
+        """
+        Create a Field from a FieldType with default values.
+
+        This factory method creates a Field using the FieldType's default unit,
+        symbol, and LaTeX symbol, while allowing overrides for customization.
+
+        Args:
+            field_type: The FieldType to base this field on
+            name: Override the default name (defaults to FieldType name)
+            symbol: Override the default symbol
+            unit: Override the default unit (must be compatible)
+            latex_symbol: Override the default LaTeX symbol
+            **kwargs: Additional Field attributes (description, aliases, etc.)
+
+        Returns:
+            A new Field instance
+
+        Raises:
+            ValueError: If provided unit is not compatible with field_type
+
+        Example:
+            >>> from python_magnetunits import Field, FieldType
+            >>> # Create with all defaults
+            >>> B = Field.from_field_type(FieldType.MAGNETIC_FIELD)
+            >>> B.symbol
+            'B'
+            >>> # Create with custom name and unit
+            >>> B_res = Field.from_field_type(
+            ...     FieldType.MAGNETIC_FIELD,
+            ...     name="ResistiveMagneticField",
+            ...     symbol="B_res",
+            ...     unit="millitesla",
+            ... )
+        """
+        return cls(
+            name=name or field_type.name,
+            symbol=symbol or field_type.default_symbol,
+            unit=unit or field_type.default_unit,
+            field_type=field_type,
+            latex_symbol=latex_symbol or field_type.latex_symbol,
+            **kwargs,
+        )
 
     def convert(self, value: float, to_unit: Union[str, Any]) -> float:
         """
@@ -175,7 +242,7 @@ class Field:
 
         if target_unit:
             # Format unit using pint's pretty formatting
-            unit_obj = ureg(target_unit) if isinstance(target_unit, str) else target_unit
+            unit_obj = ureg.Unit(target_unit) if isinstance(target_unit, str) else target_unit
             unit_str = f"{unit_obj:~P}"  # Pretty format
             return f"{sym} [{unit_str}]"
         return sym
@@ -201,7 +268,8 @@ class Field:
 
     def __repr__(self) -> str:
         """String representation of the Field."""
+        field_type_str = f", field_type={self.field_type.name}" if self.field_type else ""
         return (
             f"Field(name={self.name!r}, symbol={self.symbol!r}, "
-            f"unit={self.unit!r}, aliases={self.aliases})"
+            f"unit={self.unit!r}{field_type_str})"
         )

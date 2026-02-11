@@ -48,6 +48,7 @@ from .converters import (
     get_unit_string,
 )
 from .field import Field, ureg
+from .field_types import FieldType
 from .registry import FieldRegistry, default_registry
 from . import physics
 
@@ -57,6 +58,7 @@ __email__ = "christophe.trophime@lncmi.cnrs.fr"
 __all__ = [
     # Core classes
     "Field",
+    "FieldType",
     "FieldRegistry",
     "ureg",
     # Registry instances
