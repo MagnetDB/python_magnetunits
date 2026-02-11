@@ -127,3 +127,10 @@ log*
 
 *.hdf
 tmp
+
+# archive formats
+*.zip
+*.tgz
+
+# old
+*.old
