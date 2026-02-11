@@ -9,8 +9,23 @@ from typing import Any, List, Optional, Union
 
 from pint import UnitRegistry
 
-# Global unit registry shared across the package
-ureg = UnitRegistry()
+# Module-level singleton instance
+_global_ureg: Optional[UnitRegistry] = None
+
+
+def get_global_ureg() -> UnitRegistry:
+    """Get the global UnitRegistry instance (singleton pattern)."""
+    global _global_ureg
+    if _global_ureg is None:
+        _global_ureg = UnitRegistry(system="SI")
+        _global_ureg.define("percent = 0.01 = %")
+        _global_ureg.define("ppm = 1e-6")
+        _global_ureg.define("var = 1")  # For reactive power (VAr)
+    return _global_ureg
+
+
+# Initialize the global ureg instance at module load time
+ureg = get_global_ureg()
 
 
 @dataclass

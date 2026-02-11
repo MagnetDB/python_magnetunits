@@ -148,50 +148,6 @@ POTENTIAL = Field(
     metadata={"category": "electromagnetic"},
 )
 
-# Magnetic permeability (relative)
-RELATIVE_PERMEABILITY = Field(
-    name="RelativePermeability",
-    symbol="μ_r",
-    unit=ureg.dimensionless,
-    description="Relative magnetic permeability",
-    latex_symbol=r"$\mu_r$",
-    aliases=["mu_r", "relative_permeability"],
-    metadata={"category": "electromagnetic"},
-)
-
-# Magnetic permeability (absolute)
-PERMEABILITY = Field(
-    name="Permeability",
-    symbol="μ",
-    unit=ureg.henry / ureg.meter,
-    description="Absolute magnetic permeability",
-    latex_symbol=r"$\mu$",
-    aliases=["mu", "permeability"],
-    metadata={"category": "electromagnetic"},
-)
-
-# Conductivity
-CONDUCTIVITY = Field(
-    name="Conductivity",
-    symbol="σ",
-    unit=ureg.siemens / ureg.meter,
-    description="Electrical conductivity",
-    latex_symbol=r"$\sigma$",
-    aliases=["sigma", "conductivity"],
-    metadata={"category": "electromagnetic"},
-)
-
-# Permittivity (relative)
-RELATIVE_PERMITTIVITY = Field(
-    name="RelativePermittivity",
-    symbol="ε_r",
-    unit=ureg.dimensionless,
-    description="Relative permittivity (dielectric constant)",
-    latex_symbol=r"$\varepsilon_r$",
-    aliases=["epsilon_r", "relative_permittivity", "dielectric_constant"],
-    metadata={"category": "electromagnetic"},
-)
-
 
 # List of all electromagnetic fields for bulk registration
 ELECTROMAGNETIC_FIELDS = [
@@ -208,10 +164,6 @@ ELECTROMAGNETIC_FIELDS = [
     CURRENT_DENSITY_Y,
     CURRENT_DENSITY_Z,
     POTENTIAL,
-    RELATIVE_PERMEABILITY,
-    PERMEABILITY,
-    CONDUCTIVITY,
-    RELATIVE_PERMITTIVITY,
 ]
 
 
@@ -226,13 +178,14 @@ def register_electromagnetic_fields(registry: FieldRegistry | None = None) -> No
 
     Example:
         >>> from python_magnetunits import FieldRegistry
-        >>> from python_magnetunits.standard_fields import electromagnetic
+        >>> from python_magnetunits.physics import electromagnetic
         >>> registry = FieldRegistry()
         >>> electromagnetic.register_electromagnetic_fields(registry)
         >>> field = registry.get("MagneticField")
     """
     if registry is None:
         from ..registry import default_registry
+
         registry = default_registry
 
     registry.bulk_register(ELECTROMAGNETIC_FIELDS)

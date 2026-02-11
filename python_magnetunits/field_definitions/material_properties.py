@@ -1,5 +1,5 @@
 # python_magnetunits/field_definitions/material_properties.py
-from field_framework import Field, ureg
+from ..field import Field, ureg
 
 def create_material_property_fields():
     """Create standard material property field definitions."""

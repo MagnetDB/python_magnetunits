@@ -16,7 +16,7 @@ Features:
 
 Quick Start:
     >>> from python_magnetunits import Field, FieldRegistry, ureg
-    >>> from python_magnetunits.standard_fields import electromagnetic
+    >>> from python_magnetunits.physics import electromagnetic
     >>>
     >>> # Use standard fields
     >>> registry = FieldRegistry()
@@ -49,7 +49,7 @@ from .converters import (
 )
 from .field import Field, ureg
 from .registry import FieldRegistry, default_registry
-from . import standard_fields
+from . import physics
 
 __author__ = "Christophe"
 
@@ -67,7 +67,7 @@ __all__ = [
     "get_unit_string",
     "are_compatible",
     # Subpackages
-    "standard_fields",
+    "physics",
 ]
 
 # Version is read from package metadata (defined in pyproject.toml)
@@ -79,7 +79,7 @@ except ImportError:
     from importlib_metadata import version, PackageNotFoundError
 
 try:
-    __version__ = version("python-magnetgeo")
+    __version__ = version("python-magnetunits")
 except PackageNotFoundError:
     # Package not installed (e.g., running from source without install)
     # This is expected during development before running `pip install -e .`

@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Shared field and unit management for scientific computing with Python"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "Christophe", email = "your.email@example.com" }]
+authors = [{ name = "Christophe Trophime", email = "christophe.trophime@lncmi.cnrs.fr" }]
 requires-python = ">=3.9"
 dependencies = [
     "pint>=0.20",
@@ -28,7 +28,7 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = "https://github.com/yourusername/python_magnetunits"
+Repository = "https://github.com/MagnetDB/python_magnetunits"
 
 [project.optional-dependencies]
 dev = [

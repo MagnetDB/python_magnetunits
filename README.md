@@ -58,7 +58,7 @@ pip install python_magnetunits
 
 ```python
 from python_magnetunits import FieldRegistry
-from python_magnetunits.standard_fields import electromagnetic
+from python_magnetunits.physics import electromagnetic
 
 # Create a registry and register standard electromagnetic fields
 registry = FieldRegistry()
@@ -215,7 +215,7 @@ Pre-defined fields for electromagnetic simulations:
 
 ```python
 from python_magnetunits import FieldRegistry
-from python_magnetunits.standard_fields import electromagnetic
+from python_magnetunits.physics import electromagnetic
 
 registry = FieldRegistry()
 electromagnetic.register_electromagnetic_fields(registry)
@@ -232,7 +232,7 @@ E = registry.get("ElectricField")
 
 ```python
 from field_framework import FieldRegistry
-from field_framework.standard_fields import electromagnetic
+from field_framework.physics import electromagnetic
 
 # Setup fields
 registry = FieldRegistry()
@@ -247,7 +247,7 @@ converted = field.convert(data, output_unit)
 
 ```python
 from python_magnetunits import FieldRegistry
-from python_magnetunits.standard_fields import electromagnetic
+from python_magnetunits.physics import electromagnetic
 
 # Setup
 registry = FieldRegistry()
@@ -270,7 +270,7 @@ python_magnetunits/
 ├── field.py              # Core Field class
 ├── registry.py           # FieldRegistry for management
 ├── converters.py         # Unit conversion utilities
-└── standard_fields/
+└── physics/
     ├── electromagnetic.py # EM field definitions
     └── ...               # More domains
 ```

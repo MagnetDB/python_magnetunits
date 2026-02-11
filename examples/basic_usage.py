@@ -10,7 +10,7 @@ This example demonstrates:
 """
 
 from python_magnetunits import Field, FieldRegistry, ureg
-from python_magnetunits.standard_fields import electromagnetic
+from python_magnetunits.physics import electromagnetic
 
 
 def example_standard_fields():
