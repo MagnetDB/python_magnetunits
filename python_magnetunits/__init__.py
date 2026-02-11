@@ -34,7 +34,7 @@ Quick Start:
     >>> registry.register(T)
 
 Documentation:
-    https://github.com/yourusername/python_magnetunits
+    https://github.com/MagnetDB/python_magnetunits
 
 License:
     MIT
@@ -51,7 +51,8 @@ from .field import Field, ureg
 from .registry import FieldRegistry, default_registry
 from . import physics
 
-__author__ = "Christophe"
+__author__ = "Christophe Trophime"
+__email__ = "christophe.trophime@lncmi.cnrs.fr"
 
 __all__ = [
     # Core classes
@@ -75,7 +76,7 @@ __all__ = [
 try:
     from importlib.metadata import version, PackageNotFoundError
 except ImportError:
-    # Fallback for Python < 3.8 (though we require 3.11+)
+    # Fallback for Python < 3.8 (though we require 3.9+)
     from importlib_metadata import version, PackageNotFoundError
 
 try:

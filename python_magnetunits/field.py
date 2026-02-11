@@ -20,7 +20,9 @@ def get_global_ureg() -> UnitRegistry:
         _global_ureg = UnitRegistry(system="SI")
         _global_ureg.define("percent = 0.01 = %")
         _global_ureg.define("ppm = 1e-6")
-        _global_ureg.define("var = 1")  # For reactive power (VAr)
+        _global_ureg.define("var = volt * ampere")  # For reactive power (VAr)
+        # SI-compatible Gauss (pint's lowercase 'gauss' is CGS with different dimensionality)
+        _global_ureg.define("Gauss = 1e-4 tesla = G")
     return _global_ureg
 
 
@@ -42,6 +44,7 @@ class Field:
         name: Unique identifier for the field (e.g., "MagneticField")
         symbol: Short symbol for display (e.g., "B")
         unit: Pint unit or unit string (e.g., "tesla", ureg.tesla)
+        field_type: Optional FieldType enum value for categorization
         description: Optional human-readable description of the field
         latex_symbol: Optional LaTeX representation (e.g., r"$B$")
         aliases: Alternative names for this field (for registry lookup)
@@ -67,6 +70,7 @@ class Field:
     name: str
     symbol: str
     unit: Union[str, Any]  # pint.Unit or str
+    field_type: Optional[Any] = None  # Optional[FieldType] - avoiding circular import
     description: Optional[str] = None
     latex_symbol: Optional[str] = None
     aliases: List[str] = dc_field(default_factory=list)
