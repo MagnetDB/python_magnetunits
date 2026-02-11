@@ -25,6 +25,10 @@ def example_standard_fields():
 
     # Access fields by different identifiers
     B = registry.get("MagneticField")  # By name
+    if B is None:
+        print("ERROR: MagneticField not found!")
+        return
+
     B_symbol = registry.get("B")  # By symbol
     B_alias = registry.get("magnetic_field")  # By alias
 
@@ -76,7 +80,8 @@ def example_custom_fields():
         description="Pressure",
         latex_symbol=r"$P$",
         aliases=["press"],
-        metadata={"category": "mechanical"},
+        # FIXED: Changed category from "mechanical" to "hydraulics"
+        metadata={"category": "hydraulics"},
     )
 
     # Register custom fields
@@ -88,6 +93,10 @@ def example_custom_fields():
 
     # Use custom fields
     T = registry.get("Temperature")
+    if T is None:
+        print("ERROR: Temperature not found!")
+        return
+
     print(f"\nTemperature conversions:")
     print(f"  273.15 K = {T.convert(273.15, 'degC')} °C")
     print(f"  300 K = {T.convert(300, 'degF'):.1f} °F")

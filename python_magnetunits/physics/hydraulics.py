@@ -141,7 +141,8 @@ KINEMATIC_VISCOSITY = Field(
     field_type=FieldType.KINEMATIC_VISCOSITY,
     description="Kinematic viscosity",
     latex_symbol=r"$\nu$",
-    aliases=["nu", "kinematic_viscosity"],
+    # FIXED: Changed "nu" to "nu_kinematic" to avoid conflict with PoissonRatio
+    aliases=["nu_kinematic", "kinematic_viscosity"],
     metadata={"category": "hydraulics", "type": "material_property"},
 )
 

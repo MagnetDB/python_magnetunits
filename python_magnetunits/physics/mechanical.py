@@ -3,6 +3,9 @@ Standard mechanical field definitions.
 
 This module defines commonly used mechanical fields for structural simulations,
 including stress, strain, displacement, force, and mechanical material properties.
+
+Note: Density field has been removed from this module to avoid duplication.
+      Use hydraulics.DENSITY instead for mass density.
 """
 
 from __future__ import annotations
@@ -267,20 +270,15 @@ POISSON_RATIO = Field(
     field_type=FieldType.POISSON_RATIO,
     description="Poisson's ratio",
     latex_symbol=r"$\nu$",
-    aliases=["nu", "poisson_ratio", "poisson"],
+    # FIXED: Changed "nu" to "nu_poisson" to avoid conflict with KinematicViscosity
+    aliases=["nu_poisson", "poisson_ratio", "poisson"],
     metadata={"category": "mechanical", "type": "material_property"},
 )
 
-DENSITY = Field(
-    name="MechanicalDensity",
-    symbol="ρ",
-    unit=ureg.kilogram / ureg.meter**3,
-    field_type=FieldType.DENSITY,
-    description="Mass density (for mechanical calculations)",
-    latex_symbol=r"$\rho$",
-    aliases=["rho_mech", "mechanical_density"],
-    metadata={"category": "mechanical", "type": "material_property"},
-)
+# NOTE: DENSITY has been removed from this module.
+# Use hydraulics.DENSITY for mass density to avoid duplication.
+# If you need a mechanical-specific density, import from hydraulics:
+#   from python_magnetunits.physics.hydraulics import DENSITY
 
 
 # =============================================================================
@@ -322,11 +320,10 @@ DISPLACEMENT_FIELDS: List[Field] = [
     DISPLACEMENT_Z,
 ]
 
-# Material properties
+# Material properties (DENSITY removed - use hydraulics.DENSITY)
 MECHANICAL_MATERIAL_PROPERTIES: List[Field] = [
     YOUNG_MODULUS,
     POISSON_RATIO,
-    DENSITY,
 ]
 
 # All mechanical fields
@@ -342,6 +339,9 @@ MECHANICAL_FIELDS: List[Field] = (
 def register_mechanical_fields(registry: "FieldRegistry") -> None:
     """
     Register all standard mechanical fields with a registry.
+
+    Note: This does not include DENSITY. Use hydraulics.register_hydraulic_fields()
+    or hydraulics.register_fluid_properties() if you need density.
 
     Args:
         registry: FieldRegistry to register fields with
@@ -372,5 +372,5 @@ def register_displacement_fields(registry: "FieldRegistry") -> None:
 
 
 def register_mechanical_material_properties(registry: "FieldRegistry") -> None:
-    """Register only mechanical material property fields."""
+    """Register only mechanical material property fields (YoungModulus, PoissonRatio)."""
     registry.bulk_register(MECHANICAL_MATERIAL_PROPERTIES)
