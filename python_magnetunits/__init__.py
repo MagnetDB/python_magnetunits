@@ -75,11 +75,7 @@ __all__ = [
 
 # Version is read from package metadata (defined in pyproject.toml)
 # This ensures a single source of truth for the version number
-try:
-    from importlib.metadata import version, PackageNotFoundError
-except ImportError:
-    # Fallback for Python < 3.8 (though we require 3.9+)
-    from importlib_metadata import version, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError, version
 
 try:
     __version__ = version("python-magnetunits")
