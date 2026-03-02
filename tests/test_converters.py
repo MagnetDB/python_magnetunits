@@ -2,6 +2,7 @@
 Tests for the converters module.
 """
 
+import pint
 import pytest
 from python_magnetunits import (
     convert_array,
@@ -33,7 +34,7 @@ class TestConvertValue:
 
     def test_convert_incompatible_units_raises_error(self) -> None:
         """Test that converting incompatible units raises error."""
-        with pytest.raises(Exception):  # pint.DimensionalityError
+        with pytest.raises(pint.errors.DimensionalityError):
             convert_value(1.0, "tesla", "meter")
 
 

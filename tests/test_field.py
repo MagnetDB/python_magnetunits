@@ -2,6 +2,7 @@
 Tests for the Field class.
 """
 
+import pint
 import pytest
 from python_magnetunits import Field, ureg
 
@@ -104,7 +105,7 @@ class TestFieldConversion:
     def test_convert_incompatible_unit_conversion_raises_error(self) -> None:
         """Test that converting to incompatible unit raises error."""
         field = Field(name="B", symbol="B", unit="tesla")
-        with pytest.raises(Exception):  # pint.DimensionalityError
+        with pytest.raises(pint.errors.DimensionalityError):
             field.convert(1.0, "meter")
 
 
