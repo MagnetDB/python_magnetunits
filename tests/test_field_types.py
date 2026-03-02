@@ -142,8 +142,8 @@ class TestFieldTypeCount:
     """Test that all expected field types exist."""
 
     def test_total_field_type_count(self) -> None:
-        """Verify we have exactly 40 field types."""
-        assert len(FieldType) == 40
+        """Verify we have exactly 41 field types."""
+        assert len(FieldType) == 41
 
     def test_electromagnetic_field_types_exist(self) -> None:
         """Test electromagnetic field types exist."""

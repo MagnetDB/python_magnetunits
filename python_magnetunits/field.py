@@ -169,7 +169,7 @@ class Field:
 
         Example:
             >>> field = Field("B", "B", "tesla")
-            >>> field.convert(1.0, "gauss")
+            >>> field.convert(1.0, "Gauss")
             10000.0
         """
         quantity = ureg.Quantity(value, self.unit)

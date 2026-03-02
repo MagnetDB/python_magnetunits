@@ -22,7 +22,7 @@ Quick Start:
     >>> registry = FieldRegistry()
     >>> electromagnetic.register_electromagnetic_fields(registry)
     >>> B = registry.get("MagneticField")
-    >>> print(B.convert(1.0, "gauss"))  # 10000.0
+    >>> print(B.convert(1.0, "Gauss"))  # 10000.0
     >>>
     >>> # Or define custom fields
     >>> T = Field(

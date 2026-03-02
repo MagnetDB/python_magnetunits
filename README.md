@@ -68,10 +68,10 @@ electromagnetic.register_electromagnetic_fields(registry)
 B_field = registry.get("MagneticField")  # or "B" or "magnetic_field"
 
 # Convert values
-value_in_gauss = B_field.convert(1.5, "gauss")  # 15000.0
+value_in_gauss = B_field.convert(1.5, "Gauss")  # 15000.0
 
 # Generate formatted labels for plots
-label = B_field.format_label("gauss", use_latex=True)  # "$B$ [G]"
+label = B_field.format_label("Gauss", use_latex=True)  # "$B$ [G]"
 ```
 
 ### Custom Field Definitions
@@ -108,7 +108,7 @@ field = Field(name="B", symbol="B", unit="tesla")
 
 # Convert arrays of values
 values_tesla = [1.0, 2.0, 3.0]
-values_gauss = field.convert_array(values_tesla, "gauss")
+values_gauss = field.convert_array(values_tesla, "Gauss")
 # [10000.0, 20000.0, 30000.0]
 ```
 
@@ -119,7 +119,7 @@ from python_magnetunits import convert_data, ureg
 
 # Works with magnetrun-style field_units dict
 field_units = {
-    "MagneticField": [ureg.tesla, ureg.gauss],
+    "MagneticField": [ureg.tesla, ureg.Gauss],
     "Temperature": [ureg.kelvin, ureg.degC],
 }
 

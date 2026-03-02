@@ -29,7 +29,7 @@ class FieldType(Enum):
         <Unit('tesla')>
         >>> ftype.default_symbol
         'B'
-        >>> ftype.is_compatible(ureg.gauss)
+        >>> ftype.is_compatible(ureg.Gauss)
         True
         >>> ftype.is_compatible(ureg.meter)
         False
@@ -72,6 +72,7 @@ class FieldType(Enum):
     # === Hydraulics / Thermohydraulics ===
     PRESSURE = "pressure"
     FLOW_RATE = "flow_rate"
+    MASS_FLOW_RATE = "mass_flow_rate"
     VELOCITY = "velocity"
     DYNAMIC_VISCOSITY = "dynamic_viscosity"
     KINEMATIC_VISCOSITY = "kinematic_viscosity"
@@ -123,7 +124,7 @@ class FieldType(Enum):
             True if the unit has the same dimensionality as this field type
 
         Example:
-            >>> FieldType.MAGNETIC_FIELD.is_compatible("gauss")
+            >>> FieldType.MAGNETIC_FIELD.is_compatible("Gauss")
             True
             >>> FieldType.MAGNETIC_FIELD.is_compatible("meter")
             False
@@ -170,6 +171,7 @@ _FIELD_TYPE_UNITS: Dict[FieldType, Any] = {
     # Hydraulics / Thermohydraulics
     FieldType.PRESSURE: ureg.pascal,
     FieldType.FLOW_RATE: ureg.meter**3 / ureg.second,
+    FieldType.MASS_FLOW_RATE: ureg.kilogram / ureg.second,
     FieldType.VELOCITY: ureg.meter / ureg.second,
     FieldType.DYNAMIC_VISCOSITY: ureg.pascal * ureg.second,
     FieldType.KINEMATIC_VISCOSITY: ureg.meter**2 / ureg.second,
@@ -225,6 +227,7 @@ _FIELD_TYPE_SYMBOLS: Dict[FieldType, str] = {
     # Hydraulics / Thermohydraulics
     FieldType.PRESSURE: "P",
     FieldType.FLOW_RATE: "Q",
+    FieldType.MASS_FLOW_RATE: "ṁ",
     FieldType.VELOCITY: "v",
     FieldType.DYNAMIC_VISCOSITY: "μ",
     FieldType.KINEMATIC_VISCOSITY: "ν",
@@ -280,6 +283,7 @@ _FIELD_TYPE_LATEX: Dict[FieldType, str] = {
     # Hydraulics / Thermohydraulics
     FieldType.PRESSURE: r"$P$",
     FieldType.FLOW_RATE: r"$Q$",
+    FieldType.MASS_FLOW_RATE: r"$\dot{m}$",
     FieldType.VELOCITY: r"$v$",
     FieldType.DYNAMIC_VISCOSITY: r"$\mu$",
     FieldType.KINEMATIC_VISCOSITY: r"$\nu$",

@@ -44,11 +44,33 @@ class TestFieldRegistryRegistration:
         """Test that registering a field with same name overwrites."""
         registry = FieldRegistry()
         field1 = Field(name="B", symbol="B", unit="tesla")
-        field2 = Field(name="B", symbol="B_new", unit="gauss")
+        field2 = Field(name="B", symbol="B_new", unit="millitesla")
         registry.register(field1)
         registry.register(field2)
         assert len(registry) == 1
         assert registry.get("B").symbol == "B_new"
+
+    def test_register_overwrites_clears_stale_symbol(self) -> None:
+        """Old symbol entry must not survive after re-registration with new symbol."""
+        registry = FieldRegistry()
+        field1 = Field(name="B", symbol="old_sym", unit="tesla")
+        field2 = Field(name="B", symbol="new_sym", unit="millitesla")
+        registry.register(field1)
+        registry.register(field2)
+        # old symbol should no longer resolve
+        assert registry.get("old_sym") is None
+        # new symbol should resolve to field2
+        assert registry.get("new_sym") is field2
+
+    def test_register_overwrites_clears_stale_aliases(self) -> None:
+        """Old alias entries must not survive after re-registration with new aliases."""
+        registry = FieldRegistry()
+        field1 = Field(name="B", symbol="B", unit="tesla", aliases=["old_alias"])
+        field2 = Field(name="B", symbol="B", unit="tesla", aliases=["new_alias"])
+        registry.register(field1)
+        registry.register(field2)
+        assert registry.get("old_alias") is None
+        assert registry.get("new_alias") is field2
 
     def test_bulk_register(self) -> None:
         """Test bulk registration of multiple fields."""
@@ -111,7 +133,7 @@ class TestFieldRegistryLookup:
         """Test that ambiguous aliases return None."""
         registry = FieldRegistry()
         field1 = Field(name="Field1", symbol="F1", unit="tesla", aliases=["F"])
-        field2 = Field(name="Field2", symbol="F2", unit="gauss", aliases=["F"])
+        field2 = Field(name="Field2", symbol="F2", unit="millitesla", aliases=["F"])
         registry.register(field1)
         registry.register(field2)
         # Alias "F" matches both fields - should return None
@@ -226,6 +248,17 @@ class TestFieldRegistryRemoval:
         assert registry.get("B_field") is None
         assert registry.get("magnetic_field") is None
         assert registry.get("flux_density") is None
+
+    def test_remove_does_not_clear_shared_symbol(self) -> None:
+        """Removing one field must not break symbol lookup for another field sharing the same symbol."""
+        registry = FieldRegistry()
+        field1 = Field(name="Field1", symbol="shared_sym", unit="tesla")
+        field2 = Field(name="Field2", symbol="shared_sym", unit="millitesla")
+        registry.register(field1)
+        registry.register(field2)  # field2 wins the symbol slot
+        registry.remove("Field1")
+        # field2 still reachable via the shared symbol
+        assert registry.get("shared_sym") is field2
 
 
 class TestFieldRegistryRepr:

@@ -55,6 +55,21 @@ class FieldRegistry:
             >>> field = Field(name="Temperature", symbol="T", unit="kelvin")
             >>> registry.register(field)
         """
+        # If replacing an existing field, clean up its stale mappings first.
+        if field.name in self._fields:
+            old_field = self._fields[field.name]
+            # Only remove the symbol entry if it still points to the old field.
+            if self._by_symbol.get(old_field.symbol) is old_field:
+                del self._by_symbol[old_field.symbol]
+            # Remove alias entries that belong to the old field.
+            for alias in old_field.aliases:
+                if alias in self._by_alias:
+                    self._by_alias[alias] = [
+                        f for f in self._by_alias[alias] if f.name != old_field.name
+                    ]
+                    if not self._by_alias[alias]:
+                        del self._by_alias[alias]
+
         self._fields[field.name] = field
         self._by_symbol[field.symbol] = field
         for alias in field.aliases:
@@ -172,8 +187,9 @@ class FieldRegistry:
         field = self._fields[field_name]
         del self._fields[field_name]
 
-        # Remove symbol mapping
-        if field.symbol in self._by_symbol:
+        # Remove symbol mapping only if it still points to this field.
+        # Another registered field may share the same symbol.
+        if self._by_symbol.get(field.symbol) is field:
             del self._by_symbol[field.symbol]
 
         # Remove alias mappings

@@ -276,11 +276,37 @@ class TestFormatDefinition:
                           field_type="length", description="Test column"),
         ]
         fmt = FormatDefinition("test", field_definitions=field_defs)
-        
+
         result = fmt.to_dict()
         assert result["format_name"] == "test"
         assert len(result["fields"]) == 1
         assert result["fields"][0]["name"] == "Col1"
+
+    def test_to_dict_round_trip_preserves_all_fields(self) -> None:
+        """to_dict() must preserve aliases, latex_symbol, and exclude_regions."""
+        field_defs = [
+            FieldDefinition(
+                name="Bres",
+                unit="tesla",
+                symbol="B_res",
+                field_type="magnetic_field",
+                description="Resistive field",
+                latex_symbol=r"$B_{res}$",
+                aliases=["B_resistive", "b_res"],
+                exclude_regions=["vacuum"],
+            ),
+        ]
+        fmt = FormatDefinition("test", field_definitions=field_defs)
+        serialized = fmt.to_dict()
+
+        # Round-trip
+        fmt2 = FormatDefinition.from_dict(serialized)
+        field = fmt2.get_field("Bres")
+        assert field is not None
+        assert field.latex_symbol == r"$B_{res}$"
+        assert "B_resistive" in field.aliases
+        assert "b_res" in field.aliases
+        assert "vacuum" in field.exclude_regions
 
 
 class TestFormatDefinitionFromJSON:

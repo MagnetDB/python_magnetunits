@@ -79,7 +79,7 @@ class TestConvertData:
 
     def test_convert_data_missing_field_returns_original(self) -> None:
         """Test that missing field returns original value."""
-        field_units = {"MagneticField": [ureg.tesla, ureg.gauss]}
+        field_units = {"MagneticField": [ureg.tesla, ureg.Gauss]}
         result = convert_data(field_units, 1.5, "Temperature")
         assert result == 1.5
 
@@ -143,6 +143,7 @@ class TestAreCompatible:
         """Test that compatible magnetic units return True."""
         assert are_compatible("tesla", "millitesla") is True
         assert are_compatible("tesla", "microtesla") is True
+        assert are_compatible("tesla", "Gauss") is True  # custom SI-compatible Gauss
 
     def test_incompatible_units(self) -> None:
         """Test that incompatible units return False."""

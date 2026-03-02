@@ -331,6 +331,9 @@ class FormatDefinition:
                     "unit": defn.unit,
                     "symbol": defn.symbol,
                     "description": defn.description,
+                    "latex_symbol": defn.latex_symbol,
+                    "aliases": defn.aliases,
+                    "exclude_regions": defn.exclude_regions,
                 }
                 for defn in self._field_definitions
             ],

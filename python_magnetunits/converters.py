@@ -35,7 +35,7 @@ def convert_data(
 
     Example:
         >>> field_units = {
-        ...     "MagneticField": [ureg.tesla, ureg.gauss],
+        ...     "MagneticField": [ureg.tesla, ureg.Gauss],
         ...     "Temperature": [ureg.kelvin, ureg.celsius],
         ... }
         >>> convert_data(field_units, 1.5, "MagneticField")
@@ -84,7 +84,7 @@ def convert_value(
         pint.UndefinedUnitError: If unit string is not recognized
 
     Example:
-        >>> convert_value(1.0, "tesla", "gauss")
+        >>> convert_value(1.0, "tesla", "Gauss")
         10000.0
         >>> convert_value(100, "millimeter", "centimeter")
         10.0
@@ -161,7 +161,7 @@ def are_compatible(
     Example:
         >>> are_compatible("meter", "centimeter")
         True
-        >>> are_compatible("tesla", "gauss")
+        >>> are_compatible("tesla", "Gauss")
         True
         >>> are_compatible("tesla", "meter")
         False
