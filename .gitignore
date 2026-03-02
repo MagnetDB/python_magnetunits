@@ -112,6 +112,7 @@ ENV/
 
 # debian stuff
 .pc
+.pybuild/
 
 # data folder
 data
