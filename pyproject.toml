@@ -54,3 +54,24 @@ disallow_untyped_defs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--cov=python_magnetunits --cov-report=html --cov-report=term-missing"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by black/formatter)
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["python_magnetunits*"]
+exclude = ["prompts*", "scripts*", "examples*", "tests*"]
