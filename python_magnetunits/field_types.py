@@ -11,6 +11,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Dict
 
+import pint
+
 from .field import ureg
 
 
@@ -134,7 +136,7 @@ class FieldType(Enum):
                 unit = ureg.Unit(unit)
             ureg.Quantity(1, unit).to(self.default_unit)
             return True
-        except Exception:
+        except (pint.errors.UndefinedUnitError, pint.errors.DimensionalityError):
             return False
 
 
