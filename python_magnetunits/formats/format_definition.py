@@ -7,6 +7,7 @@ This module provides the FormatDefinition class which represents a data file for
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass, field as dc_field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
@@ -127,7 +128,6 @@ class FieldDefinition:
         if ftype is not None:
             if not ftype.is_compatible(unit):
                 # Create field without field_type to avoid validation error
-                import warnings
                 warnings.warn(
                     f"Field '{self.name}': unit '{unit}' incompatible with "
                     f"field_type '{self.field_type}', creating without type validation"
@@ -241,8 +241,6 @@ class FormatDefinition:
 
     def _build_fields(self) -> None:
         """Convert field definitions to Field objects and register them."""
-        import warnings
-        
         for defn in self._field_definitions:
             try:
                 field = defn.to_field()
