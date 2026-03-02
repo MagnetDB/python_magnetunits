@@ -1,0 +1,35 @@
+Source: python-magnetunits
+Section: python
+Priority: optional
+Maintainer: Christophe Trophime <christophe.trophime@lncmi.cnrs.fr>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-setuptools,
+               python3-pint (>= 0.20),
+               python3-pytest,
+Standards-Version: 4.6.2
+Homepage: https://github.com/MagnetDB/python_magnetunits
+Rules-Requires-Root: no
+
+Package: python3-magnetunits
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         python3-pint (>= 0.20),
+Description: shared field and unit management for scientific computing
+ A Python package for managing physical fields and units in scientific
+ computing applications. Provides type-safe field definitions with
+ integrated unit conversion, flexible lookup registries, and a library
+ of standard scientific fields.
+ .
+ Features include:
+  - Type-safe Field class backed by pint units
+  - FieldRegistry with name/symbol/alias lookup
+  - Unit conversion for single values and arrays
+  - Plot label generation with optional LaTeX rendering
+  - Domain-specific region exclusions
+  - Pre-defined fields for electromagnetic, thermal, hydraulic, and
+    mechanical physics domains
+  - Backwards-compatible helpers for dict-based field definitions

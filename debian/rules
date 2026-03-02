@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# Debian rules file for python-magnetunits
+
+export PYBUILD_NAME=python_magnetunits
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_test:
+	# pyproject.toml addopts adds --cov=... which requires pytest-cov.
+	# Override addopts to empty so tests run without the coverage plugin.
+	PYBUILD_TEST_ARGS="--override-ini=addopts= -v" dh_auto_test
