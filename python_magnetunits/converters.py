@@ -48,14 +48,15 @@ def convert_data(
 
     input_unit, output_unit = field_units[fieldname]
 
-    # Handle both single values and lists
     is_list = isinstance(values, list)
     vals = values if is_list else [values]
 
-    converted = []
-    for val in vals:
-        quantity = ureg.Quantity(val, input_unit)
-        converted.append(quantity.to(output_unit).magnitude)
+    try:
+        # Vectorized path: single Quantity wrapping the whole list (requires numpy)
+        converted = list(ureg.Quantity(vals, input_unit).to(output_unit).magnitude)
+    except TypeError:
+        # Fallback: element-wise conversion (numpy not installed)
+        converted = [ureg.Quantity(v, input_unit).to(output_unit).magnitude for v in vals]
 
     return converted if is_list else converted[0]
 
@@ -101,6 +102,9 @@ def convert_array(
     """
     Convert an array of values between units.
 
+    Uses a single pint Quantity wrapping the whole list so the conversion
+    is performed in one operation rather than once per element.
+
     Args:
         values: List of values to convert
         from_unit: Source unit (string or pint Unit)
@@ -113,7 +117,14 @@ def convert_array(
         >>> convert_array([1.0, 2.0], "meter", "centimeter")
         [100.0, 200.0]
     """
-    return [convert_value(v, from_unit, to_unit) for v in values]
+    if not values:
+        return []
+    try:
+        # Vectorized path: single Quantity wrapping the whole list (requires numpy)
+        return list(ureg.Quantity(values, from_unit).to(to_unit).magnitude)
+    except TypeError:
+        # Fallback: element-wise conversion (numpy not installed)
+        return [convert_value(v, from_unit, to_unit) for v in values]
 
 
 def get_unit_string(unit: Union[str, Any], pretty: bool = True) -> str:

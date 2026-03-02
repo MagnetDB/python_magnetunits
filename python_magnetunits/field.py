@@ -191,7 +191,14 @@ class Field:
             >>> field.convert_array([1.0, 2.0, 3.0], "millitesla")
             [1000.0, 2000.0, 3000.0]
         """
-        return [self.convert(v, to_unit) for v in values]
+        if not values:
+            return []
+        try:
+            # Vectorized path: single Quantity wrapping the whole list (requires numpy)
+            return list(ureg.Quantity(values, self.unit).to(to_unit).magnitude)
+        except TypeError:
+            # Fallback: element-wise conversion (numpy not installed)
+            return [self.convert(v, to_unit) for v in values]
 
     def validate_value(self, value: Any) -> bool:
         """
