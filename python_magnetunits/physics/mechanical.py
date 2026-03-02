@@ -30,7 +30,7 @@ FORCE = Field(
     field_type=FieldType.FORCE,
     description="Force magnitude",
     latex_symbol=r"$F$",
-    aliases=["F", "force"],
+    aliases=["force"],
     metadata={"category": "mechanical", "type": "vector_magnitude"},
 )
 
@@ -41,7 +41,7 @@ FORCE_X = Field(
     field_type=FieldType.FORCE,
     description="Force x-component",
     latex_symbol=r"$F_x$",
-    aliases=["Fx", "F_x", "force_x"],
+    aliases=["Fx", "force_x"],
     metadata={"category": "mechanical", "type": "component", "component": "x"},
 )
 
@@ -52,7 +52,7 @@ FORCE_Y = Field(
     field_type=FieldType.FORCE,
     description="Force y-component",
     latex_symbol=r"$F_y$",
-    aliases=["Fy", "F_y", "force_y"],
+    aliases=["Fy", "force_y"],
     metadata={"category": "mechanical", "type": "component", "component": "y"},
 )
 
@@ -63,7 +63,7 @@ FORCE_Z = Field(
     field_type=FieldType.FORCE,
     description="Force z-component",
     latex_symbol=r"$F_z$",
-    aliases=["Fz", "F_z", "force_z"],
+    aliases=["Fz", "force_z"],
     metadata={"category": "mechanical", "type": "component", "component": "z"},
 )
 
@@ -210,7 +210,7 @@ DISPLACEMENT = Field(
     field_type=FieldType.LENGTH,
     description="Displacement magnitude",
     latex_symbol=r"$u$",
-    aliases=["u", "displacement", "disp"],
+    aliases=["displacement", "disp"],
     metadata={"category": "mechanical", "type": "vector_magnitude"},
 )
 
@@ -221,7 +221,7 @@ DISPLACEMENT_X = Field(
     field_type=FieldType.LENGTH,
     description="Displacement x-component",
     latex_symbol=r"$u_x$",
-    aliases=["ux", "u_x", "displacement_x"],
+    aliases=["ux", "displacement_x"],
     metadata={"category": "mechanical", "type": "component", "component": "x"},
 )
 
@@ -232,7 +232,7 @@ DISPLACEMENT_Y = Field(
     field_type=FieldType.LENGTH,
     description="Displacement y-component",
     latex_symbol=r"$u_y$",
-    aliases=["uy", "u_y", "displacement_y"],
+    aliases=["uy", "displacement_y"],
     metadata={"category": "mechanical", "type": "component", "component": "y"},
 )
 
@@ -243,7 +243,7 @@ DISPLACEMENT_Z = Field(
     field_type=FieldType.LENGTH,
     description="Displacement z-component",
     latex_symbol=r"$u_z$",
-    aliases=["uz", "u_z", "displacement_z"],
+    aliases=["uz", "displacement_z"],
     metadata={"category": "mechanical", "type": "component", "component": "z"},
 )
 

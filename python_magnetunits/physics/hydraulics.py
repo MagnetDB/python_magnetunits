@@ -27,7 +27,7 @@ PRESSURE = Field(
     field_type=FieldType.PRESSURE,
     description="Static pressure",
     latex_symbol=r"$P$",
-    aliases=["P", "pressure", "static_pressure"],
+    aliases=["pressure", "static_pressure"],
     metadata={"category": "hydraulics", "type": "scalar"},
 )
 
@@ -54,7 +54,7 @@ FLOW_RATE = Field(
     field_type=FieldType.FLOW_RATE,
     description="Volumetric flow rate",
     latex_symbol=r"$Q$",
-    aliases=["Q", "flow_rate", "volumetric_flow_rate", "flow"],
+    aliases=["flow_rate", "volumetric_flow_rate", "flow"],
     metadata={"category": "hydraulics", "type": "scalar"},
 )
 
@@ -81,7 +81,7 @@ VELOCITY = Field(
     field_type=FieldType.VELOCITY,
     description="Flow velocity magnitude",
     latex_symbol=r"$v$",
-    aliases=["v", "velocity", "flow_velocity"],
+    aliases=["velocity", "flow_velocity"],
     metadata={"category": "hydraulics", "type": "vector_magnitude"},
 )
 
@@ -92,7 +92,7 @@ VELOCITY_X = Field(
     field_type=FieldType.VELOCITY,
     description="Velocity x-component",
     latex_symbol=r"$v_x$",
-    aliases=["vx", "v_x", "velocity_x"],
+    aliases=["vx", "velocity_x"],
     metadata={"category": "hydraulics", "type": "component", "component": "x"},
 )
 
@@ -103,7 +103,7 @@ VELOCITY_Y = Field(
     field_type=FieldType.VELOCITY,
     description="Velocity y-component",
     latex_symbol=r"$v_y$",
-    aliases=["vy", "v_y", "velocity_y"],
+    aliases=["vy", "velocity_y"],
     metadata={"category": "hydraulics", "type": "component", "component": "y"},
 )
 
@@ -114,7 +114,7 @@ VELOCITY_Z = Field(
     field_type=FieldType.VELOCITY,
     description="Velocity z-component",
     latex_symbol=r"$v_z$",
-    aliases=["vz", "v_z", "velocity_z"],
+    aliases=["vz", "velocity_z"],
     metadata={"category": "hydraulics", "type": "component", "component": "z"},
 )
 

@@ -27,7 +27,7 @@ TEMPERATURE = Field(
     field_type=FieldType.TEMPERATURE,
     description="Absolute temperature",
     latex_symbol=r"$T$",
-    aliases=["T", "temp", "temperature"],
+    aliases=["temp", "temperature"],
     exclude_regions=["Air"],
     metadata={"category": "thermal", "type": "scalar"},
 )
@@ -44,7 +44,7 @@ HEAT_FLUX = Field(
     field_type=FieldType.HEAT_FLUX,
     description="Heat flux (power per unit area)",
     latex_symbol=r"$q$",
-    aliases=["q", "heat_flux", "thermal_flux"],
+    aliases=["heat_flux", "thermal_flux"],
     metadata={"category": "thermal", "type": "scalar"},
 )
 
@@ -55,7 +55,7 @@ HEAT_FLUX_X = Field(
     field_type=FieldType.HEAT_FLUX,
     description="Heat flux x-component",
     latex_symbol=r"$q_x$",
-    aliases=["qx", "q_x", "heat_flux_x"],
+    aliases=["qx", "heat_flux_x"],
     metadata={"category": "thermal", "type": "component", "component": "x"},
 )
 
@@ -66,7 +66,7 @@ HEAT_FLUX_Y = Field(
     field_type=FieldType.HEAT_FLUX,
     description="Heat flux y-component",
     latex_symbol=r"$q_y$",
-    aliases=["qy", "q_y", "heat_flux_y"],
+    aliases=["qy", "heat_flux_y"],
     metadata={"category": "thermal", "type": "component", "component": "y"},
 )
 
@@ -77,7 +77,7 @@ HEAT_FLUX_Z = Field(
     field_type=FieldType.HEAT_FLUX,
     description="Heat flux z-component",
     latex_symbol=r"$q_z$",
-    aliases=["qz", "q_z", "heat_flux_z"],
+    aliases=["qz", "heat_flux_z"],
     metadata={"category": "thermal", "type": "component", "component": "z"},
 )
 
@@ -93,7 +93,7 @@ THERMAL_CONDUCTIVITY = Field(
     field_type=FieldType.THERMAL_CONDUCTIVITY,
     description="Thermal conductivity",
     latex_symbol=r"$k$",
-    aliases=["k", "k_thermal", "thermal_conductivity"],
+    aliases=["k_thermal", "thermal_conductivity"],
     exclude_regions=["Air"],
     metadata={"category": "thermal", "type": "material_property"},
 )
@@ -105,7 +105,7 @@ HEAT_TRANSFER_COEFFICIENT = Field(
     field_type=FieldType.HEAT_TRANSFER_COEFFICIENT,
     description="Convective heat transfer coefficient",
     latex_symbol=r"$h$",
-    aliases=["h", "htc", "heat_transfer_coefficient", "convection_coefficient"],
+    aliases=["htc", "heat_transfer_coefficient", "convection_coefficient"],
     metadata={"category": "thermal", "type": "material_property"},
 )
 
@@ -116,7 +116,7 @@ SPECIFIC_HEAT = Field(
     field_type=FieldType.SPECIFIC_HEAT,
     description="Specific heat capacity at constant pressure",
     latex_symbol=r"$c_p$",
-    aliases=["cp", "c_p", "specific_heat", "heat_capacity"],
+    aliases=["cp", "specific_heat", "heat_capacity"],
     metadata={"category": "thermal", "type": "material_property"},
 )
 

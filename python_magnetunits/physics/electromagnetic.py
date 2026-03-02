@@ -21,7 +21,7 @@ MAGNETIC_FIELD = Field(
     unit=ureg.tesla,
     description="Magnetic flux density",
     latex_symbol=r"$B$",
-    aliases=["B", "B_field", "magnetic_field", "magnetic_flux_density"],
+    aliases=["B_field", "magnetic_field", "magnetic_flux_density"],
     metadata={"category": "electromagnetic", "type": "scalar"},
 )
 
@@ -31,7 +31,7 @@ MAGNETIC_FIELD_X = Field(
     unit=ureg.tesla,
     description="Magnetic field x-component",
     latex_symbol=r"$B_x$",
-    aliases=["Bx", "B_x", "magnetic_field_x"],
+    aliases=["Bx", "magnetic_field_x"],
     metadata={"category": "electromagnetic", "type": "component", "component": "x"},
 )
 
@@ -41,7 +41,7 @@ MAGNETIC_FIELD_Y = Field(
     unit=ureg.tesla,
     description="Magnetic field y-component",
     latex_symbol=r"$B_y$",
-    aliases=["By", "B_y", "magnetic_field_y"],
+    aliases=["By", "magnetic_field_y"],
     metadata={"category": "electromagnetic", "type": "component", "component": "y"},
 )
 
@@ -51,7 +51,7 @@ MAGNETIC_FIELD_Z = Field(
     unit=ureg.tesla,
     description="Magnetic field z-component",
     latex_symbol=r"$B_z$",
-    aliases=["Bz", "B_z", "magnetic_field_z"],
+    aliases=["Bz", "magnetic_field_z"],
     metadata={"category": "electromagnetic", "type": "component", "component": "z"},
 )
 
@@ -62,7 +62,7 @@ ELECTRIC_FIELD = Field(
     unit=ureg.volt / ureg.meter,
     description="Electric field strength",
     latex_symbol=r"$E$",
-    aliases=["E", "E_field", "electric_field"],
+    aliases=["E_field", "electric_field"],
     metadata={"category": "electromagnetic"},
 )
 
@@ -72,7 +72,7 @@ ELECTRIC_FIELD_X = Field(
     unit=ureg.volt / ureg.meter,
     description="Electric field x-component",
     latex_symbol=r"$E_x$",
-    aliases=["Ex", "E_x", "electric_field_x"],
+    aliases=["Ex", "electric_field_x"],
     metadata={"category": "electromagnetic", "type": "component", "component": "x"},
 )
 
@@ -82,7 +82,7 @@ ELECTRIC_FIELD_Y = Field(
     unit=ureg.volt / ureg.meter,
     description="Electric field y-component",
     latex_symbol=r"$E_y$",
-    aliases=["Ey", "E_y", "electric_field_y"],
+    aliases=["Ey", "electric_field_y"],
     metadata={"category": "electromagnetic", "type": "component", "component": "y"},
 )
 
@@ -92,7 +92,7 @@ ELECTRIC_FIELD_Z = Field(
     unit=ureg.volt / ureg.meter,
     description="Electric field z-component",
     latex_symbol=r"$E_z$",
-    aliases=["Ez", "E_z", "electric_field_z"],
+    aliases=["Ez", "electric_field_z"],
     metadata={"category": "electromagnetic", "type": "component", "component": "z"},
 )
 
@@ -103,7 +103,7 @@ CURRENT_DENSITY = Field(
     unit=ureg.ampere / ureg.meter**2,
     description="Current density",
     latex_symbol=r"$J$",
-    aliases=["J", "J_field", "current_density"],
+    aliases=["J_field", "current_density"],
     metadata={"category": "electromagnetic"},
 )
 
@@ -113,7 +113,7 @@ CURRENT_DENSITY_X = Field(
     unit=ureg.ampere / ureg.meter**2,
     description="Current density x-component",
     latex_symbol=r"$J_x$",
-    aliases=["Jx", "J_x"],
+    aliases=["Jx"],
     metadata={"category": "electromagnetic", "type": "component", "component": "x"},
 )
 
@@ -123,7 +123,7 @@ CURRENT_DENSITY_Y = Field(
     unit=ureg.ampere / ureg.meter**2,
     description="Current density y-component",
     latex_symbol=r"$J_y$",
-    aliases=["Jy", "J_y"],
+    aliases=["Jy"],
     metadata={"category": "electromagnetic", "type": "component", "component": "y"},
 )
 
@@ -133,7 +133,7 @@ CURRENT_DENSITY_Z = Field(
     unit=ureg.ampere / ureg.meter**2,
     description="Current density z-component",
     latex_symbol=r"$J_z$",
-    aliases=["Jz", "J_z"],
+    aliases=["Jz"],
     metadata={"category": "electromagnetic", "type": "component", "component": "z"},
 )
 
@@ -144,7 +144,7 @@ POTENTIAL = Field(
     unit=ureg.volt,
     description="Electric potential",
     latex_symbol=r"$V$",
-    aliases=["V", "potential", "electric_potential"],
+    aliases=["potential", "electric_potential"],
     metadata={"category": "electromagnetic"},
 )
 
