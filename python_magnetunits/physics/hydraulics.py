@@ -198,12 +198,14 @@ HYDRAULIC_FIELDS: List[Field] = (
 )
 
 
-def register_hydraulic_fields(registry: "FieldRegistry") -> None:
+def register_hydraulic_fields(registry: "FieldRegistry | None" = None) -> None:
     """
     Register all standard hydraulic fields with a registry.
 
+    If no registry is provided, registers with the default global registry.
+
     Args:
-        registry: FieldRegistry to register fields with
+        registry: FieldRegistry to register with (uses default if None)
 
     Example:
         >>> from python_magnetunits import FieldRegistry
@@ -212,14 +214,26 @@ def register_hydraulic_fields(registry: "FieldRegistry") -> None:
         >>> hydraulics.register_hydraulic_fields(registry)
         >>> field = registry.get("Pressure")
     """
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(HYDRAULIC_FIELDS)
 
 
-def register_velocity_fields(registry: "FieldRegistry") -> None:
-    """Register only velocity field and components."""
+def register_velocity_fields(registry: "FieldRegistry | None" = None) -> None:
+    """Register only velocity field and components (uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(VELOCITY_FIELDS)
 
 
-def register_fluid_properties(registry: "FieldRegistry") -> None:
-    """Register only fluid property fields."""
+def register_fluid_properties(registry: "FieldRegistry | None" = None) -> None:
+    """Register only fluid property fields (uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(FLUID_PROPERTIES)

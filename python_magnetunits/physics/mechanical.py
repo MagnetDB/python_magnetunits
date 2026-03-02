@@ -336,15 +336,17 @@ MECHANICAL_FIELDS: List[Field] = (
 )
 
 
-def register_mechanical_fields(registry: "FieldRegistry") -> None:
+def register_mechanical_fields(registry: "FieldRegistry | None" = None) -> None:
     """
     Register all standard mechanical fields with a registry.
+
+    If no registry is provided, registers with the default global registry.
 
     Note: This does not include DENSITY. Use hydraulics.register_hydraulic_fields()
     or hydraulics.register_fluid_properties() if you need density.
 
     Args:
-        registry: FieldRegistry to register fields with
+        registry: FieldRegistry to register with (uses default if None)
 
     Example:
         >>> from python_magnetunits import FieldRegistry
@@ -353,24 +355,44 @@ def register_mechanical_fields(registry: "FieldRegistry") -> None:
         >>> mechanical.register_mechanical_fields(registry)
         >>> field = registry.get("Stress")
     """
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(MECHANICAL_FIELDS)
 
 
-def register_stress_fields(registry: "FieldRegistry") -> None:
-    """Register only stress fields (scalar and tensor components)."""
+def register_stress_fields(registry: "FieldRegistry | None" = None) -> None:
+    """Register only stress fields (scalar and tensor components, uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(STRESS_FIELDS)
 
 
-def register_strain_fields(registry: "FieldRegistry") -> None:
-    """Register only strain fields."""
+def register_strain_fields(registry: "FieldRegistry | None" = None) -> None:
+    """Register only strain fields (uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(STRAIN_FIELDS)
 
 
-def register_displacement_fields(registry: "FieldRegistry") -> None:
-    """Register only displacement fields."""
+def register_displacement_fields(registry: "FieldRegistry | None" = None) -> None:
+    """Register only displacement fields (uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(DISPLACEMENT_FIELDS)
 
 
-def register_mechanical_material_properties(registry: "FieldRegistry") -> None:
-    """Register only mechanical material property fields (YoungModulus, PoissonRatio)."""
+def register_mechanical_material_properties(registry: "FieldRegistry | None" = None) -> None:
+    """Register only mechanical material property fields (uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(MECHANICAL_MATERIAL_PROPERTIES)

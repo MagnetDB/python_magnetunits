@@ -170,12 +170,14 @@ THERMAL_FIELDS: List[Field] = [
 ] + HEAT_FLUX_FIELDS + THERMAL_MATERIAL_PROPERTIES
 
 
-def register_thermal_fields(registry: "FieldRegistry") -> None:
+def register_thermal_fields(registry: "FieldRegistry | None" = None) -> None:
     """
     Register all standard thermal fields with a registry.
 
+    If no registry is provided, registers with the default global registry.
+
     Args:
-        registry: FieldRegistry to register fields with
+        registry: FieldRegistry to register with (uses default if None)
 
     Example:
         >>> from python_magnetunits import FieldRegistry
@@ -184,9 +186,17 @@ def register_thermal_fields(registry: "FieldRegistry") -> None:
         >>> thermal.register_thermal_fields(registry)
         >>> field = registry.get("Temperature")
     """
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(THERMAL_FIELDS)
 
 
-def register_thermal_material_properties(registry: "FieldRegistry") -> None:
-    """Register only thermal material property fields."""
+def register_thermal_material_properties(registry: "FieldRegistry | None" = None) -> None:
+    """Register only thermal material property fields (uses default registry if None)."""
+    if registry is None:
+        from ..registry import default_registry
+
+        registry = default_registry
     registry.bulk_register(THERMAL_MATERIAL_PROPERTIES)
