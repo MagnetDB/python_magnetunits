@@ -167,9 +167,8 @@ def are_compatible(
         False
     """
     try:
-        u1 = ureg(unit1) if isinstance(unit1, str) else unit1
-        u2 = ureg(unit2) if isinstance(unit2, str) else unit2
-        # Try to convert from u1 to u2
+        u1 = ureg.Unit(unit1) if isinstance(unit1, str) else unit1
+        u2 = ureg.Unit(unit2) if isinstance(unit2, str) else unit2
         ureg.Quantity(1, u1).to(u2)
         return True
     except (TypeError, ValueError):

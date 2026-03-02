@@ -131,7 +131,7 @@ class FieldType(Enum):
         """
         try:
             if isinstance(unit, str):
-                unit = ureg(unit)
+                unit = ureg.Unit(unit)
             ureg.Quantity(1, unit).to(self.default_unit)
             return True
         except Exception:
